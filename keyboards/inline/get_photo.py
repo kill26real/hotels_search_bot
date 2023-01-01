@@ -2,6 +2,7 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 def get_photo() -> InlineKeyboardMarkup:
+    """Функция, создающая Inline кнопки с выбором выводить фотографии или нет"""
     photo_markup = InlineKeyboardMarkup()
     key_yes = InlineKeyboardButton(text='Да', callback_data='yes')
     key_no = InlineKeyboardButton(text='Нет', callback_data='no')
@@ -9,9 +10,9 @@ def get_photo() -> InlineKeyboardMarkup:
     return photo_markup
 
 def photo_amount() -> InlineKeyboardMarkup:
+    """Функция, создающая Inline кнопки с выбором количества выводимых фотографий"""
 
     photos_markup = InlineKeyboardMarkup(row_width=3)
-
     h_1 = InlineKeyboardButton(text='1', callback_data='1')
     h_2 = InlineKeyboardButton(text='2', callback_data='2')
     h_3 = InlineKeyboardButton(text='3', callback_data='3')

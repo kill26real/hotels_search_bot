@@ -11,10 +11,13 @@ def city_founding(city):
 
     hotel_json = json.loads(response.text)
 
+    if hotel_json['rc'] == 'GOOGLE_AUTOCOMPLETE':
+        raise TypeError
+
     if response:
         cities = list()
         for dest in hotel_json["sr"]:
-            if dest["type"] in ("CITY", "NEIGHBORHOOD", "LANDMARK_GROUP"):
+            if dest["type"] in ("CITY", "NEIGHBORHOOD", "LANDMARK_GROUP", "MULTIREGION"):
                 location_name = dest["regionNames"]["fullName"]
                 loc = location_name.split(', ')
                 need_loc = loc[0]
@@ -24,7 +27,7 @@ def city_founding(city):
 
 
 def city_markup(city):
-    """Функция, создающая кнопки"""
+    """Функция, создающая Inline кнопки с выбором локаций"""
     cities = city_founding(city)
     if cities:
         destinations = InlineKeyboardMarkup(row_width=2)
@@ -34,6 +37,8 @@ def city_markup(city):
             data = name + ', ' + destination_id
             destinations.add(InlineKeyboardButton(text=city['city_name'],
                                                   callback_data=f"{data}"))
+        destinations.add(InlineKeyboardButton(text="ВЕРНУТЬСЯ НАЗАД",
+                                              callback_data="back"))
         return destinations
     else:
-        raise Exception
+        raise NameError

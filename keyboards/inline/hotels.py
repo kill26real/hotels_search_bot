@@ -2,6 +2,7 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 def hotels() -> InlineKeyboardMarkup:
+    """Функция, создающая Inline кнопки с выбором количества выводимых отелей"""
 
     hotels_markup = InlineKeyboardMarkup(row_width=3)
 
