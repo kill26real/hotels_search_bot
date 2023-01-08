@@ -8,11 +8,10 @@ import os
 def history(message: Message) -> None:
     """Функция-хэндлер. Обрабатывает команду с историей поиска и выводит историю, если она есть."""
     full_name = str(message.from_user.full_name).replace(' ', '_')
-    dir = os.path.abspath('database')
-    db_path = os.path.join(dir, "history.db")
+    db_path = os.path.abspath('history.db')
     with sq.connect(db_path) as base:
         cur = base.cursor()
-        cur.execute(f"SELECT command,date,city,hotels_names FROM history WHERE user_name = '{full_name}'")
+        cur.execute(f"SELECT command,date,city,hotels_names FROM history WHERE user_name = '{full_name}' ORDER BY date DESC LIMIT 10")
 
         all_result = cur.fetchall()
         if all_result:

@@ -30,13 +30,7 @@ def find_photos(hotel_id, photos):
 
     for j in range(photos):
         photo_url = photos_data[j]["image"]["url"][:-34]
-        photo_id = str(int(hotel_id) + j)
-
-        f = open(f'{photo_id}.jpg', 'wb')
-        f.write(urllib.request.urlopen(photo_url).read())
-        f.close()
-
-        photo = InputMediaPhoto(open(f'{photo_id}.jpg', 'rb'))
+        photo = InputMediaPhoto(photo_url)
 
         photos_list.append(photo)
 
@@ -69,7 +63,7 @@ def find_hotels(region, date_in, date_out, low_high, photos, i=0):
         min = 10
         max = 300
     elif low_high == '/highprice':
-        min = 300
+        min = 100
         max = 1500
 
     payload = {

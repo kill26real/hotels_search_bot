@@ -20,12 +20,6 @@ from handlers.hotel_search.history import history
 @bot.message_handler(commands=['lowprice', 'highprice', 'bestdeal'])
 def price(message: Message) -> None:
     """Функция-хэндлер. Обрабатывает команды с поиском отелей, присваивает состояние и спрашивает город."""
-    try:
-        for file in os.listdir():
-            if file.endswith(".jpg"):
-                os.remove(file)
-    except PermissionError:
-        pass
     bot.set_state(message.from_user.id, PriceStates.city, message.chat.id)
     bot.send_message(message.from_user.id,
                      f"{message.from_user.first_name}, напишите город или страну в котором хотите посмотреть отели")
@@ -204,7 +198,7 @@ def photo_callback(call) -> None:
                 except (
                 ReadTimeout, ConnectTimeout, ConnectionError, ApiTelegramException, ApiInvalidJSONException, TypeError):
                     bot.delete_message(call.message.chat.id, animation.id)
-                    bot.send_message(call.message.from_user.id,
+                    bot.send_message(call.from_user.id,
                                      f"К сожалению, возникла ошибка на сервере. Попробуйте еще раз!\n"
                                      f"{call.from_user.first_name}, напишите город или страну в котором хотите посмотреть отели")
                     bot.set_state(call.from_user.id, PriceStates.city, call.message.chat.id)
@@ -221,8 +215,7 @@ def photo_callback(call) -> None:
 
             full_name = str(call.from_user.full_name).replace(' ', '_')
             str_command = command[1:]
-            dir = os.path.abspath('database')
-            db_path = os.path.join(dir, "history.db")
+            db_path = os.path.abspath('history.db')
             hotels_names = hotels_names[:-1]
             with sq.connect(db_path) as base:
                 cur = base.cursor()
@@ -268,7 +261,7 @@ def photo_amount_callback(call) -> None:
             except (
             ReadTimeout, ConnectTimeout, ConnectionError, ApiTelegramException, ApiInvalidJSONException, TypeError):
                 bot.delete_message(call.message.chat.id, animation.id)
-                bot.send_message(call.message.from_user.id,
+                bot.send_message(call.from_user.id,
                                  f"К сожалению, возникла ошибка на сервере. Попробуйте еще раз!\n\n"
                                  f"{call.from_user.first_name}, напишите город или страну в котором хотите посмотреть отели")
                 bot.set_state(call.from_user.id, PriceStates.city, call.message.chat.id)
@@ -290,8 +283,7 @@ def photo_amount_callback(call) -> None:
 
         full_name = str(call.from_user.full_name).replace(' ', '_')
         str_command = command[1:]
-        dir = os.path.abspath('database')
-        db_path = os.path.join(dir, "history.db")
+        db_path = os.path.abspath('history.db')
         hotels_names = hotels_names[:-1]
         with sq.connect(db_path) as base:
             cur = base.cursor()
@@ -441,8 +433,7 @@ def max_dist(message: Message) -> None:
 
                 full_name = str(message.from_user.full_name).replace(' ', '_')
                 str_command = command[1:]
-                dir = os.path.abspath('database')
-                db_path = os.path.join(dir, "history.db")
+                db_path = os.path.abspath('history.db')
                 hotels_names = hotels_names[:-1]
                 with sq.connect(db_path) as base:
                     cur = base.cursor()
