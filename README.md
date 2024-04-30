@@ -1,23 +1,22 @@
-# Проект WorldSearchHotelsBot
+# Project WorldSearchHotelsBot
 
+WorldSearchHotelsBot is a Telegram bot. It searches for hotels around the world based on the parameters entered by the user
+and outputs the hotels filtered by the user. The search is performed based on the API of the service Hotels.com.
+The API to the specified site is taken from the service RapidAPI.com.
 
-WorldSearchHotelsBot - это бот для Telegram. Он ищет отели по всему миру исходя из вводимых пользователем параметрами
-и выводит отели исходя из введенной команды. Поиск выполняется на основе API сервиса Hotels.com.
-API к указанному сайту взяты с сервиса RapidAPI.com.
+### Commands:
 
-### Команды:
+1. /lowprice - search for the lowest cost hotels
+2. /highprice - search for the highest cost hotels
+3. /bestdeal - search for hotels by a given price range and a distance from the center of the location
+4. /history - search history
 
-1. /lowprice - ищет отели с самой низкой стоимостью
-2. /highprice - ищет отели с самой высокой стоимостью
-3. /bestdeal - ищет отели по заданному диапазону цены и не больше заданного расстояния от центра локации
-4. /history - выводит историю поиска
+### Installation:
 
-### Установка:
-
-1. Клонируйте репозиторий с GitHub
-2. Создайте виртуальное окружние
-3. Установите зависимости
-    pip install -r requirements.txt
-4. саздайте файл .env
-5. Впишите в .env токен бота и ключ от API как показано в .env.template
-6. Запустите бота
+1. Clone the repository from GitHub
+2. Create a virtual environment
+3. Install dependencies
+pip install -r requirements.txt
+4. Create the .env file
+5. Enter the bot token and API key in .env as shown in .env.template
+6. Launch the bot
